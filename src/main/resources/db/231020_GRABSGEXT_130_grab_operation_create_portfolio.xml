@@ -1,0 +1,372 @@
+<?xml version="1.1" encoding="UTF-8" ?> 
+<databaseChangeLog
+        xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog
+                   http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.5.xsd">
+
+    <!--Long-->
+    <property name="231020_GRABSGEXT_130_grab_operation_create_portfolio.PARAM_REGION" value="regionCode"/>
+	
+	<!--List<Long>-->
+    <property name="231020_GRABSGEXT_130_grab_operation_create_portfolio.PARAM_CONTRACTOR_ID" value="contractorID"/>
+	
+	<!--Long-->
+    <property name="231020_GRABSGEXT_130_grab_operation_create_portfolio.PARAM_VERTICAL" value="vertical"/>
+	
+	<!--Long-->
+    <property name="231020_GRABSGEXT_130_grab_operation_create_portfolio.PARAM_CATEGORY" value="category"/>
+
+    <property name="231020_GRABSGEXT_130_grab_operation_create_portfolio.OPERATION_SYNC_URL"
+              value="http://wc-schedule-co-grab:8080/api/ECA/createPortfolio"
+              context="dev"/>
+			  
+	<property name="logicalFile" value="231020_GRABSGEXT_130_grab_operation_create_portfolio.xml" />
+
+    <changeSet logicalFilePath="${logicalFile}" id="1" author="m.narawade">
+		<tagDatabase tag="${logicalFile}"/>
+    </changeSet>
+ 
+    <!-- Schedule operation -->
+    <changeSet logicalFilePath="${logicalFile}" id="grab_co_schedule_create_portfolio_1" author="m.narawade">
+        <sql>
+            SET IDENTITY_INSERT operation ON;
+        </sql>
+        
+        <insert tableName="operation">
+            <column name="id" value="20016"/>
+            <column name="operation_type" value="3"/>
+            <column name="name" value="Create Portfolio from schedule"/>
+            <column name="url" value="${231020_GRABSGEXT_130_grab_operation_create_portfolio.OPERATION_SYNC_URL}"/>
+            <column name="obj_comment" value="Create Portfolio"/>
+            <column name="r_customer_id" value="0"/>
+            <column name="output_type" value="0"/>
+        </insert>
+        
+        <sql>
+            SET IDENTITY_INSERT operation OFF;
+        </sql>
+
+        <insert tableName="translation_entity">
+            <column name="r_entity_attribute_id"
+                    valueComputed="(select a.id from entity_attribute a
+                                     where a.r_entity_type_id = 73
+                                       and a.name='operation.name')"/>
+            <column name="r_language_id" value="1"/>
+            <column name="value" value="Создать портфолио"/>
+            <column name="r_entity_id"
+                    valueComputed="(select op.id from operation op
+                                     where op.name = 'Create Portfolio from schedule')"/>
+        </insert>
+        <insert tableName="translation_entity">
+            <column name="r_entity_attribute_id"
+                    valueComputed="(select a.id from entity_attribute a
+                                     where a.r_entity_type_id = 73
+                                       and a.name='operation.name')"/>
+            <column name="r_language_id" value="2"/>
+            <column name="value" value="Create Portfolio"/>
+            <column name="r_entity_id"
+                    valueComputed="(select op.id from operation op
+                                     where op.name = 'Create Portfolio from schedule')"/>
+        </insert>
+
+        <insert tableName="object_entity">
+            <column name="r_key_entity_id"
+                    valueComputed="(select u.r_role_id from app_user u where u.login = 'admin')"/>
+            <column name="r_key_entity_type_id" value="12"/>
+
+            <column name="r_entity_type_id" value="73"/>
+            <column name="r_entity_id"
+                    valueComputed="(select op.id from operation op
+                                     where op.name = 'Create Portfolio from schedule')"/>
+        </insert>
+        <rollback>
+
+            <delete tableName="translation_entity">
+                <where>r_entity_attribute_id=(select a.id from entity_attribute a
+                    where a.r_entity_type_id = 73
+                    and a.name='operation.name')
+                    and r_entity_id = (select op.id from operation op
+                    where op.name = 'Create Portfolio from schedule')
+                </where>
+            </delete>
+
+            <delete tableName="object_entity">
+                <where>r_entity_id = (select op.id from operation op
+                    where op.name = 'Create Portfolio from schedule')
+                    and r_entity_type_id = 73
+                    and r_key_entity_type_id = 12
+                </where>
+            </delete>
+
+            <delete tableName="operation">
+                <where>name = 'Create Portfolio from schedule'</where>
+            </delete>
+
+        </rollback>
+    </changeSet>
+    
+	<!-- Schedule operation/ param region -->
+    <changeSet logicalFilePath="${logicalFile}" id="231020_GRABSGEXT_130_grab_operation_create_portfolio.PARAM_REGION" author="m.narawade">
+
+        <insert tableName="operation_param">
+            <column name="r_operation_id" valueComputed="(select op.id from operation op
+                                     where op.name = 'Create Portfolio from schedule')"/>
+            <column name="name" value="${231020_GRABSGEXT_130_grab_operation_create_portfolio.PARAM_REGION}"/>
+            <column name="param_type" value="7"/>
+            <column name="is_mandatory" value="1"/>
+            <column name="sort_order" value="1"/>
+            <column name="system_name" value="${231020_GRABSGEXT_130_grab_operation_create_portfolio.PARAM_REGION}"/>
+            <column name="multi_select" value="0"/>
+            <column name="r_dict_name_code" value="26"/>
+        </insert>
+
+        <insert tableName="translation_entity">
+            <column name="r_entity_attribute_id"
+                    valueComputed="(select a.id from entity_attribute a
+                                     where a.r_entity_type_id = 74
+                                       and a.name='operation_param.name')"/>
+            <column name="r_language_id" value="1"/>
+            <column name="value" value="Идентификаторы регионов"/>
+            <column name="r_entity_id"
+                    valueComputed="(select id from operation_param
+                                     where system_name='${231020_GRABSGEXT_130_grab_operation_create_portfolio.PARAM_REGION}'
+                                       and r_operation_id=(select op.id from operation op
+                                     where op.name = 'Create Portfolio from schedule'))"/>
+        </insert>
+
+        <insert tableName="translation_entity">
+            <column name="r_entity_attribute_id"
+                    valueComputed="(select a.id from entity_attribute a
+                                     where a.r_entity_type_id = 74
+                                       and a.name='operation_param.name')"/>
+            <column name="r_language_id" value="2"/>
+            <column name="value" value="Region ID"/>
+            <column name="r_entity_id"
+                    valueComputed="(select id from operation_param
+                                     where system_name='${231020_GRABSGEXT_130_grab_operation_create_portfolio.PARAM_REGION}'
+                                       and r_operation_id=(select op.id from operation op
+                                     where op.name = 'Create Portfolio from schedule'))"/>
+        </insert>
+
+
+        <rollback>
+            <delete tableName="translation_entity">
+                <where><![CDATA[
+                        r_entity_attribute_id=(select a.id
+                                                from entity_attribute a
+                                                where a.r_entity_type_id = 74
+                                                and a.name='operation_param.name')
+                        and r_entity_id = (select id from operation_param
+                                            where system_name='${231020_GRABSGEXT_130_grab_operation_create_portfolio.PARAM_REGION}'
+                                            and r_operation_id=(select op.id from operation op
+                                            where op.name = 'Create Portfolio from schedule'))
+                ]]></where>
+            </delete>
+            <delete tableName="operation_param">
+                <where><![CDATA[r_operation_id = (select op.id
+                                                    from operation op
+                                                    where op.name = 'Create Portfolio from schedule')
+                ]]></where>
+            </delete>
+        </rollback>
+    </changeSet>
+
+    <!-- Schedule operation/ param portfolioID -->
+    <changeSet logicalFilePath="${logicalFile}" id="231020_GRABSGEXT_130_grab_operation_create_portfolio.PARAM_CONTRACTOR_ID" author="m.narawade">
+
+        <insert tableName="operation_param">
+            <column name="r_operation_id" valueComputed="(select op.id from operation op
+                                     where op.name = 'Create Portfolio from schedule')"/>
+            <column name="name" value="${231020_GRABSGEXT_130_grab_operation_create_portfolio.PARAM_CONTRACTOR_ID}"/>
+            <column name="param_type" value="12"/>
+            <column name="is_mandatory" value="1"/>
+            <column name="sort_order" value="1"/>
+            <column name="system_name" value="${231020_GRABSGEXT_130_grab_operation_create_portfolio.PARAM_CONTRACTOR_ID}"/>
+            <column name="multi_select" value="1"/>
+            <column name="r_lookup_id" valueComputed="(select l.id from lookup l where l.name = 'contractors_for_create_portfolio')"/>
+        </insert>
+
+        <insert tableName="translation_entity">
+            <column name="r_entity_attribute_id"
+                    valueComputed="(select a.id from entity_attribute a
+                                     where a.r_entity_type_id = 74
+                                       and a.name='operation_param.name')"/>
+            <column name="r_language_id" value="1"/>
+            <column name="value" value="Идентификаторы подрядчиков"/>
+            <column name="r_entity_id"
+                    valueComputed="(select id from operation_param
+                                     where system_name='${231020_GRABSGEXT_130_grab_operation_create_portfolio.PARAM_CONTRACTOR_ID}'
+                                       and r_operation_id=(select op.id from operation op
+                                     where op.name = 'Create Portfolio from schedule'))"/>
+        </insert>
+
+        <insert tableName="translation_entity">
+            <column name="r_entity_attribute_id"
+                    valueComputed="(select a.id from entity_attribute a
+                                     where a.r_entity_type_id = 74
+                                       and a.name='operation_param.name')"/>
+            <column name="r_language_id" value="2"/>
+            <column name="value" value="Contractor IDs"/>
+            <column name="r_entity_id"
+                    valueComputed="(select id from operation_param
+                                     where system_name='${231020_GRABSGEXT_130_grab_operation_create_portfolio.PARAM_CONTRACTOR_ID}'
+                                       and r_operation_id=(select op.id from operation op
+                                     where op.name = 'Create Portfolio from schedule'))"/>
+        </insert>
+
+
+        <rollback>
+            <delete tableName="translation_entity">
+                <where><![CDATA[
+                        r_entity_attribute_id=(select a.id
+                                                from entity_attribute a
+                                                where a.r_entity_type_id = 74
+                                                and a.name='operation_param.name')
+                        and r_entity_id = (select id from operation_param
+                                            where system_name='${231020_GRABSGEXT_130_grab_operation_create_portfolio.PARAM_CONTRACTOR_ID}'
+                                            and r_operation_id=(select op.id from operation op
+                                            where op.name = 'Create Portfolio from schedule'))
+                ]]></where>
+            </delete>
+            <delete tableName="operation_param">
+                <where><![CDATA[r_operation_id = (select op.id
+                                                    from operation op
+                                                    where op.name = 'Create Portfolio from schedule')
+                ]]></where>
+            </delete>
+        </rollback>
+    </changeSet>
+
+    <!-- Schedule operation/ param vertical -->
+    <changeSet logicalFilePath="${logicalFile}" id="231020_GRABSGEXT_130_grab_operation_create_portfolio.PARAM_VERTICAL" author="m.narawade">
+
+        <insert tableName="operation_param">
+            <column name="r_operation_id" valueComputed="(select op.id from operation op
+                                     where op.name = 'Create Portfolio from schedule')"/>
+            <column name="name" value="${231020_GRABSGEXT_130_grab_operation_create_portfolio.PARAM_VERTICAL}"/>
+            <column name="param_type" value="7"/>
+            <column name="is_mandatory" value="1"/>
+            <column name="sort_order" value="1"/>
+            <column name="system_name" value="${231020_GRABSGEXT_130_grab_operation_create_portfolio.PARAM_VERTICAL}"/>
+            <column name="multi_select" value="0"/>
+            <column name="r_dict_name_code" value="48"/>
+        </insert>
+
+        <insert tableName="translation_entity">
+            <column name="r_entity_attribute_id"
+                    valueComputed="(select a.id from entity_attribute a
+                                     where a.r_entity_type_id = 74
+                                       and a.name='operation_param.name')"/>
+            <column name="r_language_id" value="1"/>
+            <column name="value" value="Вертикальный идентификатор"/>
+            <column name="r_entity_id"
+                    valueComputed="(select id from operation_param
+                                     where system_name='${231020_GRABSGEXT_130_grab_operation_create_portfolio.PARAM_VERTICAL}'
+                                       and r_operation_id=(select op.id from operation op
+                                     where op.name = 'Create Portfolio from schedule'))"/>
+        </insert>
+
+        <insert tableName="translation_entity">
+            <column name="r_entity_attribute_id"
+                    valueComputed="(select a.id from entity_attribute a
+                                     where a.r_entity_type_id = 74
+                                       and a.name='operation_param.name')"/>
+            <column name="r_language_id" value="2"/>
+            <column name="value" value="Vertical ID"/>
+            <column name="r_entity_id"
+                    valueComputed="(select id from operation_param
+                                     where system_name='${231020_GRABSGEXT_130_grab_operation_create_portfolio.PARAM_VERTICAL}'
+                                       and r_operation_id=(select op.id from operation op
+                                     where op.name = 'Create Portfolio from schedule'))"/>
+        </insert>
+
+
+        <rollback>
+            <delete tableName="translation_entity">
+                <where><![CDATA[
+                        r_entity_attribute_id=(select a.id
+                                                from entity_attribute a
+                                                where a.r_entity_type_id = 74
+                                                and a.name='operation_param.name')
+                        and r_entity_id = (select id from operation_param
+                                            where system_name='${231020_GRABSGEXT_130_grab_operation_create_portfolio.PARAM_VERTICAL}'
+                                            and r_operation_id=(select op.id from operation op
+                                            where op.name = 'Create Portfolio from schedule'))
+                ]]></where>
+            </delete>
+            <delete tableName="operation_param">
+                <where><![CDATA[r_operation_id = (select op.id
+                                                    from operation op
+                                                    where op.name = 'Create Portfolio from schedule')
+                ]]></where>
+            </delete>
+        </rollback>
+    </changeSet>
+
+    <!-- Schedule operation/ param category -->
+    <changeSet logicalFilePath="${logicalFile}" id="231020_GRABSGEXT_130_grab_operation_create_portfolio.PARAM_CATEGORY" author="m.narawade">
+
+        <insert tableName="operation_param">
+            <column name="r_operation_id" valueComputed="(select op.id from operation op
+                                     where op.name = 'Create Portfolio from schedule')"/>
+            <column name="name" value="${231020_GRABSGEXT_130_grab_operation_create_portfolio.PARAM_CATEGORY}"/>
+            <column name="param_type" value="7"/>
+            <column name="is_mandatory" value="1"/>
+            <column name="sort_order" value="1"/>
+            <column name="system_name" value="${231020_GRABSGEXT_130_grab_operation_create_portfolio.PARAM_CATEGORY}"/>
+            <column name="multi_select" value="0"/>
+            <column name="r_dict_name_code" value="131"/>
+        </insert>
+
+        <insert tableName="translation_entity">
+            <column name="r_entity_attribute_id"
+                    valueComputed="(select a.id from entity_attribute a
+                                     where a.r_entity_type_id = 74
+                                       and a.name='operation_param.name')"/>
+            <column name="r_language_id" value="1"/>
+            <column name="value" value="Идентификатор категории"/>
+            <column name="r_entity_id"
+                    valueComputed="(select id from operation_param
+                                     where system_name='${231020_GRABSGEXT_130_grab_operation_create_portfolio.PARAM_CATEGORY}'
+                                       and r_operation_id=(select op.id from operation op
+                                     where op.name = 'Create Portfolio from schedule'))"/>
+        </insert>
+
+        <insert tableName="translation_entity">
+            <column name="r_entity_attribute_id"
+                    valueComputed="(select a.id from entity_attribute a
+                                     where a.r_entity_type_id = 74
+                                       and a.name='operation_param.name')"/>
+            <column name="r_language_id" value="2"/>
+            <column name="value" value="Category ID"/>
+            <column name="r_entity_id"
+                    valueComputed="(select id from operation_param
+                                     where system_name='${231020_GRABSGEXT_130_grab_operation_create_portfolio.PARAM_CATEGORY}'
+                                       and r_operation_id=(select op.id from operation op
+                                     where op.name = 'Create Portfolio from schedule'))"/>
+        </insert>
+
+
+        <rollback>
+            <delete tableName="translation_entity">
+                <where><![CDATA[
+                        r_entity_attribute_id=(select a.id
+                                                from entity_attribute a
+                                                where a.r_entity_type_id = 74
+                                                and a.name='operation_param.name')
+                        and r_entity_id = (select id from operation_param
+                                            where system_name='${231020_GRABSGEXT_130_grab_operation_create_portfolio.PARAM_CATEGORY}'
+                                            and r_operation_id=(select op.id from operation op
+                                            where op.name = 'Create Portfolio from schedule'))
+                ]]></where>
+            </delete>
+            <delete tableName="operation_param">
+                <where><![CDATA[r_operation_id = (select op.id
+                                                    from operation op
+                                                    where op.name = 'Create Portfolio from schedule')
+                ]]></where>
+            </delete>
+        </rollback>
+    </changeSet>
+</databaseChangeLog>

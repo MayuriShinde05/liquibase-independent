@@ -1,0 +1,348 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<databaseChangeLog
+	xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog
+                   http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.5.xsd">
+
+	<property name="DATE_NOW" value="getdate()" dbms="mssql" />
+
+	<changeSet
+		logicalFilePath="231020_GRABSGEXT_130_grab_create_portfolio_dict.xml"
+		author="m.narawade" id="1">
+		<tagDatabase
+			tag="231020_GRABSGEXT_130_grab_create_portfolio_dict" />
+	</changeSet>
+
+	<!-- Dict term - DAX (48 - Contact tree type) -->
+	<changeSet
+		logicalFilePath="231020_GRABSGEXT_130_grab_create_portfolio_dict.xml"
+		author="s.nandikolhe" id="insert into dict_term_5">
+		<preConditions onFail="CONTINUE">
+			<sqlCheck expectedResult="0">select count(*) from dict_term
+				where code = 5 and r_dict_name_code = 48 and r_customer_id = 0
+			</sqlCheck>
+		</preConditions>
+		<insert tableName="dict_term">
+			<column name="r_dict_name_code" value="48" />
+			<column name="code" value="5" />
+			<column name="term_type" value="2" /> <!--System -->
+			<column name="change_dt" valueDate="${DATE_NOW}" />
+			<column name="create_dt" valueDate="${DATE_NOW}" />
+			<column name="is_closed" value="0" />
+			<column name="r_customer_id" value="0" />
+		</insert>
+		<insert tableName="translation_entity">
+			<column name="r_entity_attribute_id" valueNumeric="12" /> <!--dict_term.name -->
+			<column name="r_language_id" valueNumeric="1" /> <!--RU -->
+			<column name="r_entity_id"
+				valueComputed="(select id from dict_term where r_dict_name_code = 48 and code = 5 and r_customer_id = 0)" />
+			<column name="value" value="DAX" />
+			<column name="change_dt" valueDate="${DATE_NOW}" />
+			<column name="create_dt" valueDate="${DATE_NOW}" />
+		</insert>
+		<insert tableName="translation_entity">
+			<column name="r_entity_attribute_id" valueNumeric="12" /> <!-- dict_term.name -->
+			<column name="r_language_id" valueNumeric="2" /> <!--EN -->
+			<column name="r_entity_id"
+				valueComputed="(select id from dict_term where r_dict_name_code = 48 and code = 5 and r_customer_id = 0)" />
+			<column name="value" value="DAX" />
+			<column name="change_dt" valueDate="${DATE_NOW}" />
+			<column name="create_dt" valueDate="${DATE_NOW}" />
+		</insert>
+		<insert tableName="translation_entity">
+			<column name="r_entity_attribute_id" valueNumeric="12" /> <!-- dict_term.name -->
+			<column name="r_language_id" valueNumeric="6" /> <!--IT -->
+			<column name="r_entity_id"
+				valueComputed="(select id from dict_term where r_dict_name_code = 48 and code = 5 and r_customer_id = 0)" />
+			<column name="value" value="DAX" />
+			<column name="change_dt" valueDate="${DATE_NOW}" />
+			<column name="create_dt" valueDate="${DATE_NOW}" />
+		</insert>
+		<rollback>
+			<delete tableName="translation_entity">
+				<where>r_entity_attribute_id=12 and r_language_id in (1,2,6) and
+					r_entity_id=(select
+					id from dict_term where r_dict_name_code = 48
+					and
+					code = 5 and r_customer_id = 0)
+				</where>
+			</delete>
+			<delete tableName="dict_term">
+				<where> r_dict_name_code = 48 and code = 5 and
+					r_customer_id = 0
+				</where>
+			</delete>
+		</rollback>
+	</changeSet>
+
+	<!-- Dict term - PAX (48 - Contact tree type) -->
+	<changeSet
+		logicalFilePath="231020_GRABSGEXT_130_grab_create_portfolio_dict.xml"
+		author="s.nandikolhe" id="insert into dict_term_6">
+		<preConditions onFail="CONTINUE">
+			<sqlCheck expectedResult="0">select count(*) from dict_term
+				where code = 6 and r_dict_name_code = 48 and r_customer_id = 0
+			</sqlCheck>
+		</preConditions>
+		<insert tableName="dict_term">
+			<column name="r_dict_name_code" value="48" />
+			<column name="code" value="6" />
+			<column name="term_type" value="2" /> <!--System -->
+			<column name="change_dt" valueDate="${DATE_NOW}" />
+			<column name="create_dt" valueDate="${DATE_NOW}" />
+			<column name="is_closed" value="0" />
+			<column name="r_customer_id" value="0" />
+		</insert>
+		<insert tableName="translation_entity">
+			<column name="r_entity_attribute_id" valueNumeric="12" /> <!--dict_term.name -->
+			<column name="r_language_id" valueNumeric="1" /> <!--RU -->
+			<column name="r_entity_id"
+				valueComputed="(select id from dict_term where r_dict_name_code = 48 and code = 6 and r_customer_id = 0)" />
+			<column name="value" value="PAX" />
+			<column name="change_dt" valueDate="${DATE_NOW}" />
+			<column name="create_dt" valueDate="${DATE_NOW}" />
+		</insert>
+		<insert tableName="translation_entity">
+			<column name="r_entity_attribute_id" valueNumeric="12" /> <!-- dict_term.name -->
+			<column name="r_language_id" valueNumeric="2" /> <!--EN -->
+			<column name="r_entity_id"
+				valueComputed="(select id from dict_term where r_dict_name_code = 48 and code = 6 and r_customer_id = 0)" />
+			<column name="value" value="PAX" />
+			<column name="change_dt" valueDate="${DATE_NOW}" />
+			<column name="create_dt" valueDate="${DATE_NOW}" />
+		</insert>
+		<insert tableName="translation_entity">
+			<column name="r_entity_attribute_id" valueNumeric="12" /> <!-- dict_term.name -->
+			<column name="r_language_id" valueNumeric="6" /> <!--IT -->
+			<column name="r_entity_id"
+				valueComputed="(select id from dict_term where r_dict_name_code = 48 and code = 6 and r_customer_id = 0)" />
+			<column name="value" value="PAX" />
+			<column name="change_dt" valueDate="${DATE_NOW}" />
+			<column name="create_dt" valueDate="${DATE_NOW}" />
+		</insert>
+		<rollback>
+			<delete tableName="translation_entity">
+				<where>r_entity_attribute_id=12 and r_language_id in (1,2,6) and
+					r_entity_id=(select
+					id from dict_term where r_dict_name_code = 48
+					and
+					code = 6 and r_customer_id = 0)
+				</where>
+			</delete>
+			<delete tableName="dict_term">
+				<where> r_dict_name_code = 48 and code = 6 and
+					r_customer_id = 0
+				</where>
+			</delete>
+		</rollback>
+	</changeSet>
+
+	<!-- Dict name - Category name -->
+	<changeSet
+		logicalFilePath="231020_GRABSGEXT_130_grab_create_portfolio_dict.xml"
+		author="m.narawade" id="dict_131">
+		<insert tableName="dict_name">
+			<column name="code" value="131" />
+			<column name="dict_type" value="1" />
+			<column name="term_type" value="2" />
+			<column name="r_customer_id" value="0" />
+		</insert>
+
+		<insert tableName="translation_entity">
+			<column name="r_entity_attribute_id" valueNumeric="3" />
+			<column name="r_language_id" valueNumeric="1" />
+			<column name="r_entity_id"
+				valueComputed="(select id from dict_name where code = 131)" />
+			<column name="value" value="Название категории" />
+		</insert>
+
+		<insert tableName="translation_entity">
+			<column name="r_entity_attribute_id" valueNumeric="3" />
+			<column name="r_language_id" valueNumeric="2" />
+			<column name="r_entity_id"
+				valueComputed="(select id from dict_name where code = 131)" />
+			<column name="value" value="Category name" />
+		</insert>
+
+		<rollback>
+			<delete tableName="translation_entity">
+				<where>r_entity_attribute_id=3 and r_language_id in (1,2) and
+					r_entity_id = (select id from dict_name where code = 131)
+				</where>
+			</delete>
+		</rollback>
+	</changeSet>
+
+	<!-- Dict term ECA Assignment -->
+	<changeSet
+		logicalFilePath="231020_GRABSGEXT_130_grab_create_portfolio_dict.xml"
+		author="m.narawade" id="insert_on_dict_term_ECA_Assignment_1">
+		<insert tableName="dict_term">
+			<column name="r_dict_name_code" value="131" />
+			<column name="code" value="1" />
+			<column name="term_type" value="2" />
+			<column name="change_dt" valueDate="${DATE_NOW}" />
+			<column name="is_closed" value="0" />
+			<column name="r_customer_id" value="0" />
+		</insert>
+
+		<insert tableName="translation_entity">
+			<column name="r_entity_attribute_id" valueNumeric="12" />
+			<column name="r_language_id" valueNumeric="1" />
+			<column name="r_entity_id"
+				valueComputed="(select id 
+            												from dict_term 
+            												where code = 1 
+            												and r_dict_name_code = 131)" />
+			<column name="value" value="Назначение ЭКА" />
+		</insert>
+
+		<insert tableName="translation_entity">
+			<column name="r_entity_attribute_id" valueNumeric="12" />
+			<column name="r_language_id" valueNumeric="2" />
+			<column name="r_entity_id"
+				valueComputed="(select id 
+            												from dict_term 
+            												where code = 1 
+            												and r_dict_name_code = 131)" />
+			<column name="value" value="ECA Assignment" />
+		</insert>
+
+		<rollback>
+			<delete tableName="translation_entity">
+				<where>r_entity_attribute_id = 12
+					and r_language_id in (1,2)
+					and
+					r_entity_id = (select id
+					from dict_term
+					where code = 1
+					and
+					r_dict_name_code = 131)
+				</where>
+			</delete>
+
+			<delete tableName="dict_term">
+				<where>code = 1</where>
+			</delete>
+		</rollback>
+	</changeSet>
+	
+	
+	<!-- Dict term - Create Portfolio (55 - Entity type) -->
+	<changeSet
+		logicalFilePath="231020_GRABSGEXT_130_grab_create_portfolio_dict.xml"
+		author="m.narawade" id="insert_on_dict_term_Create_Portfolio_117">
+		<preConditions onFail="CONTINUE">
+            <sqlCheck expectedResult = "0">select count(*) from dict_term where code = 117 and r_dict_name_code = 55 </sqlCheck>
+        </preConditions>
+		
+		<insert tableName="dict_term">
+			<column name="r_dict_name_code" value="55" />
+			<column name="code" value="117" />
+			<column name="term_type" value="1" />
+			<column name="change_dt" valueDate="${DATE_NOW}" />
+			<column name="is_closed" value="0" />
+			<column name="r_customer_id" value="0" />
+		</insert>
+
+		<insert tableName="translation_entity">
+			<column name="r_entity_attribute_id" valueNumeric="12" />
+			<column name="r_language_id" valueNumeric="1" />
+			<column name="r_entity_id"
+				valueComputed="(select id 
+            												from dict_term 
+            												where code = 117 
+            												and r_dict_name_code = 55)" />
+			<column name="value" value="Создать портфолио" />
+		</insert>
+
+		<insert tableName="translation_entity">
+			<column name="r_entity_attribute_id" valueNumeric="12" />
+			<column name="r_language_id" valueNumeric="2" />
+			<column name="r_entity_id"
+				valueComputed="(select id 
+            												from dict_term 
+            												where code = 117 
+            												and r_dict_name_code = 55)" />
+			<column name="value" value="Create portfolio" />
+		</insert>
+
+		<rollback>
+			<delete tableName="translation_entity">
+				<where>r_entity_attribute_id = 12
+					and r_language_id in (1,2)
+					and
+					r_entity_id = (select id
+					from dict_term
+					where code = 117
+					and
+					r_dict_name_code = 55)
+				</where>
+			</delete>
+
+			<delete tableName="dict_term">
+				<where>code = 117</where>
+			</delete>
+		</rollback>
+	</changeSet>
+	
+	<!-- Dict term - Create Portfolio input parameter (55 - Entity type) -->
+	<changeSet
+		logicalFilePath="231020_GRABSGEXT_130_grab_create_portfolio_dict.xml"
+		author="m.narawade" id="insert_on_dict_term_Create_Portfolio_118">
+		<preConditions onFail="CONTINUE">
+            <sqlCheck expectedResult = "0">select count(*) from dict_term where code = 118 and r_dict_name_code = 55 </sqlCheck>
+        </preConditions>
+		
+		<insert tableName="dict_term">
+			<column name="r_dict_name_code" value="55" />
+			<column name="code" value="118" />
+			<column name="term_type" value="1" />
+			<column name="change_dt" valueDate="${DATE_NOW}" />
+			<column name="is_closed" value="0" />
+			<column name="r_customer_id" value="0" />
+		</insert>
+
+		<insert tableName="translation_entity">
+			<column name="r_entity_attribute_id" valueNumeric="12" />
+			<column name="r_language_id" valueNumeric="1" />
+			<column name="r_entity_id"
+				valueComputed="(select id 
+            												from dict_term 
+            												where code = 118 
+            												and r_dict_name_code = 55)" />
+			<column name="value" value="Создать входной параметр портфолио" />
+		</insert>
+
+		<insert tableName="translation_entity">
+			<column name="r_entity_attribute_id" valueNumeric="12" />
+			<column name="r_language_id" valueNumeric="2" />
+			<column name="r_entity_id"
+				valueComputed="(select id 
+            												from dict_term 
+            												where code = 118 
+            												and r_dict_name_code = 55)" />
+			<column name="value" value="Create Portfolio input parameter" />
+		</insert>
+
+		<rollback>
+			<delete tableName="translation_entity">
+				<where>r_entity_attribute_id = 12
+					and r_language_id in (1,2)
+					and
+					r_entity_id = (select id
+					from dict_term
+					where code = 118
+					and
+					r_dict_name_code = 55)
+				</where>
+			</delete>
+
+			<delete tableName="dict_term">
+				<where>code = 118</where>
+			</delete>
+		</rollback>
+	</changeSet>
+
+</databaseChangeLog>    

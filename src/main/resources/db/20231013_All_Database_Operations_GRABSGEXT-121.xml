@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<databaseChangeLog
+	xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog
+                   http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.5.xsd">
+	<changeSet logicalFilePath="20231013_All_Database_Operations_GRABSGEXT-121.xml"
+		id="changeloxg_create_tbl_mssql" author="m.narawade" dbms="mssql">
+		<preConditions onFail="MARK_RAN">
+			<not>
+				<tableExists tableName="test_table_mssql" />
+			</not>
+		</preConditions>
+		<createTable tableName="test_table_mssql">
+			<column name="test_id" type="int">
+				<constraints primaryKey="true" />
+			</column>
+			<column name="test_column" type="varchar" />
+		</createTable>
+	</changeSet>
+
+	<!-- create new table -->
+	<changeSet logicalFilePath="20231013_All_Database_Operations_GRABSGEXT-121.xml"
+		author="m.narawade" id="_table.testing_oracle" dbms="oracle">
+		<createTable tableName="testing_oracle">
+			<column name="id" remarks="Identifier" type="number(18)"
+				incrementBy="1" autoIncrement="true">
+				<constraints primaryKey="true" nullable="false" />
+			</column>
+			<column name="list_id" remarks="Genesys contact list Id"
+				type="NVARCHAR2(1000)" />
+		</createTable>
+	</changeSet>
+</databaseChangeLog>

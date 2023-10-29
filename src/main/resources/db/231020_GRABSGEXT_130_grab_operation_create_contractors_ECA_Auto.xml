@@ -1,0 +1,253 @@
+<?xml version="1.1" encoding="UTF-8" ?> 
+<databaseChangeLog
+        xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog
+                   http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.5.xsd">
+	
+	<property name="DATE_NOW" value="getdate()" dbms="mssql"/>
+
+    <!--Contractor Collectius-->
+    <property name="231020_GRABSGEXT_130_grab_operation_create_contractors_ECA_Auto.COLLECTIUS" value="Collectius"/>
+    
+    <!--Contractor Queby-->
+    <property name="231020_GRABSGEXT_130_grab_operation_create_contractors_ECA_Auto.QUEBY" value="Queby"/>
+    
+    <!--Contractor CamdeusNoble-->
+    <property name="231020_GRABSGEXT_130_grab_operation_create_contractors_ECA_Auto.CAMDEUSNOBLE" value="CamdeusNoble"/>
+    
+    <!--Contractor Pinnacle-->
+    <property name="231020_GRABSGEXT_130_grab_operation_create_contractors_ECA_Auto.PINNACLE" value="Pinnacle"/>
+    
+    <!--Contractor KRecovery-->
+    <property name="231020_GRABSGEXT_130_grab_operation_create_contractors_ECA_Auto.KRECOVERY" value="KRecovery"/>
+    
+    <!--Contractor Sirathanasub-->
+    <property name="231020_GRABSGEXT_130_grab_operation_create_contractors_ECA_Auto.SIRATHANASUB" value="Sirathanasub"/>
+    
+    <!--Contractor CS-->
+    <property name="231020_GRABSGEXT_130_grab_operation_create_contractors_ECA_Auto.CS" value="CS"/>
+    
+    <!--Contractor USBS-->
+    <property name="231020_GRABSGEXT_130_grab_operation_create_contractors_ECA_Auto.USBS" value="USBS"/>
+    
+    <!--Contractor Synergy -->
+    <property name="231020_GRABSGEXT_130_grab_operation_create_contractors_ECA_Auto.SYNERGY" value="Synergy"/>
+    
+	<property name="logicalFile" value="231020_GRABSGEXT_130_grab_operation_create_contractors_ECA_Auto.xml" />
+
+    <changeSet logicalFilePath="${logicalFile}" id="1" author="m.narawade">
+		<tagDatabase tag="${logicalFile}"/>
+    </changeSet>
+	
+    <changeSet logicalFilePath="${logicalFile}" id="contractor_identity_insert_on" author="m.narawade" dbms="mssql">
+        <sql>
+            SET IDENTITY_INSERT contractor ON;
+        </sql>
+    </changeSet>
+ 
+    <!-- create the portfolio COLLECTIUS -->
+    <changeSet logicalFilePath="${logicalFile}" id="grab_co_schedule_create_portfolio_COLLECTIUS" author="m.narawade">
+        
+        <insert tableName="contractor">
+            <column name="id" valueComputed="(select MAX(id) from contractor)"/>
+            <column name="name" value="${231020_GRABSGEXT_130_grab_operation_create_contractors_ECA_Auto.COLLECTIUS}"/>
+            <column name="full_name" value="${231020_GRABSGEXT_130_grab_operation_create_contractors_ECA_Auto.COLLECTIUS}" />
+            <column name="create_dt" value="${DATE_NOW}"/>
+            <column name="change_dt" value="${DATE_NOW}"/>
+            <column name="r_customer_id" value="0"/>
+            <column name="r_change_user_id" value="1"/>
+        </insert>
+
+        <rollback>
+
+            <delete tableName="contractor">
+                <where>name = '${231020_GRABSGEXT_130_grab_operation_create_contractors_ECA_Auto.COLLECTIUS}'</where>
+            </delete>
+
+        </rollback>
+    </changeSet>
+
+	<!-- create the portfolio QUEBY -->
+    <changeSet logicalFilePath="${logicalFile}" id="grab_co_schedule_create_portfolio_QUEBY" author="m.narawade">
+        
+        <insert tableName="contractor">
+            <column name="id" valueComputed="(select MAX(id) from contractor)"/>
+            <column name="name" value="${231020_GRABSGEXT_130_grab_operation_create_contractors_ECA_Auto.QUEBY}"/>
+            <column name="full_name" value="${231020_GRABSGEXT_130_grab_operation_create_contractors_ECA_Auto.QUEBY}" />
+            <column name="create_dt" value="${DATE_NOW}"/>
+            <column name="change_dt" value="${DATE_NOW}"/>
+            <column name="r_customer_id" value="0"/>
+            <column name="r_change_user_id" value="1"/>
+        </insert>
+
+        <rollback>
+
+            <delete tableName="contractor">
+                <where>name = '${231020_GRABSGEXT_130_grab_operation_create_contractors_ECA_Auto.QUEBY}'</where>
+            </delete>
+
+        </rollback>
+    </changeSet>
+	
+	
+	<!-- create the portfolio CAMDEUSNOBLE -->
+    <changeSet logicalFilePath="${logicalFile}" id="grab_co_schedule_create_portfolio_CAMDEUSNOBLE" author="m.narawade">
+        
+        <insert tableName="contractor">
+            <column name="id" valueComputed="(select MAX(id) from contractor)"/>
+            <column name="name" value="${231020_GRABSGEXT_130_grab_operation_create_contractors_ECA_Auto.CAMDEUSNOBLE}"/>
+            <column name="full_name" value="${231020_GRABSGEXT_130_grab_operation_create_contractors_ECA_Auto.CAMDEUSNOBLE}" />
+            <column name="create_dt" value="${DATE_NOW}"/>
+            <column name="change_dt" value="${DATE_NOW}"/>
+            <column name="r_customer_id" value="0"/>
+            <column name="r_change_user_id" value="1"/>
+        </insert>
+
+        <rollback>
+
+            <delete tableName="contractor">
+                <where>name = '${231020_GRABSGEXT_130_grab_operation_create_contractors_ECA_Auto.CAMDEUSNOBLE}'</where>
+            </delete>
+
+        </rollback>
+    </changeSet>
+	
+	<!-- create the portfolio PINNACLE -->
+    <changeSet logicalFilePath="${logicalFile}" id="grab_co_schedule_create_portfolio_PINNACLE" author="m.narawade">
+        
+        <insert tableName="contractor">
+            <column name="id" valueComputed="(select MAX(id) from contractor)"/>
+            <column name="name" value="${231020_GRABSGEXT_130_grab_operation_create_contractors_ECA_Auto.PINNACLE}"/>
+            <column name="full_name" value="${231020_GRABSGEXT_130_grab_operation_create_contractors_ECA_Auto.PINNACLE}" />
+            <column name="create_dt" value="${DATE_NOW}"/>
+            <column name="change_dt" value="${DATE_NOW}"/>
+            <column name="r_customer_id" value="0"/>
+            <column name="r_change_user_id" value="1"/>
+        </insert>
+
+        <rollback>
+
+            <delete tableName="contractor">
+                <where>name = '${231020_GRABSGEXT_130_grab_operation_create_contractors_ECA_Auto.PINNACLE}'</where>
+            </delete>
+
+        </rollback>
+    </changeSet>
+	
+	<!-- create the portfolio KRECOVERY -->
+    <changeSet logicalFilePath="${logicalFile}" id="grab_co_schedule_create_portfolio_KRECOVERY" author="m.narawade">
+        
+        <insert tableName="contractor">
+            <column name="id" valueComputed="(select MAX(id) from contractor)"/>
+            <column name="name" value="${231020_GRABSGEXT_130_grab_operation_create_contractors_ECA_Auto.KRECOVERY}"/>
+            <column name="full_name" value="${231020_GRABSGEXT_130_grab_operation_create_contractors_ECA_Auto.KRECOVERY}" />
+            <column name="create_dt" value="${DATE_NOW}"/>
+            <column name="change_dt" value="${DATE_NOW}"/>
+            <column name="r_customer_id" value="0"/>
+            <column name="r_change_user_id" value="1"/>
+        </insert>
+
+        <rollback>
+
+            <delete tableName="contractor">
+                <where>name = '${231020_GRABSGEXT_130_grab_operation_create_contractors_ECA_Auto.KRECOVERY}'</where>
+            </delete>
+
+        </rollback>
+    </changeSet>
+	
+	<!-- create the portfolio SIRATHANASUB -->
+    <changeSet logicalFilePath="${logicalFile}" id="grab_co_schedule_create_portfolio_SIRATHANASUB" author="m.narawade">
+        
+        <insert tableName="contractor">
+            <column name="id" valueComputed="(select MAX(id) from contractor)"/>
+            <column name="name" value="${231020_GRABSGEXT_130_grab_operation_create_contractors_ECA_Auto.SIRATHANASUB}"/>
+            <column name="full_name" value="${231020_GRABSGEXT_130_grab_operation_create_contractors_ECA_Auto.SIRATHANASUB}" />
+            <column name="create_dt" value="${DATE_NOW}"/>
+            <column name="change_dt" value="${DATE_NOW}"/>
+            <column name="r_customer_id" value="0"/>
+            <column name="r_change_user_id" value="1"/>
+        </insert>
+
+        <rollback>
+
+            <delete tableName="contractor">
+                <where>name = '${231020_GRABSGEXT_130_grab_operation_create_contractors_ECA_Auto.SIRATHANASUB}'</where>
+            </delete>
+
+        </rollback>
+    </changeSet>
+	
+	<!-- create the portfolio CS -->
+    <changeSet logicalFilePath="${logicalFile}" id="grab_co_schedule_create_portfolio_CS" author="m.narawade">
+        
+        <insert tableName="contractor">
+            <column name="id" valueComputed="(select MAX(id) from contractor)"/>
+            <column name="name" value="${231020_GRABSGEXT_130_grab_operation_create_contractors_ECA_Auto.CS}"/>
+            <column name="full_name" value="${231020_GRABSGEXT_130_grab_operation_create_contractors_ECA_Auto.CS}" />
+            <column name="create_dt" value="${DATE_NOW}"/>
+            <column name="change_dt" value="${DATE_NOW}"/>
+            <column name="r_customer_id" value="0"/>
+            <column name="r_change_user_id" value="1"/>
+        </insert>
+
+        <rollback>
+
+            <delete tableName="contractor">
+                <where>name = '${231020_GRABSGEXT_130_grab_operation_create_contractors_ECA_Auto.CS}'</where>
+            </delete>
+
+        </rollback>
+    </changeSet>
+	
+	<!-- create the portfolio USBS -->
+    <changeSet logicalFilePath="${logicalFile}" id="grab_co_schedule_create_portfolio_USBS" author="m.narawade">
+        
+        <insert tableName="contractor">
+            <column name="id" valueComputed="(select MAX(id) from contractor)"/>
+            <column name="name" value="${231020_GRABSGEXT_130_grab_operation_create_contractors_ECA_Auto.USBS}"/>
+            <column name="full_name" value="${231020_GRABSGEXT_130_grab_operation_create_contractors_ECA_Auto.USBS}" />
+            <column name="create_dt" value="${DATE_NOW}"/>
+            <column name="change_dt" value="${DATE_NOW}"/>
+            <column name="r_customer_id" value="0"/>
+            <column name="r_change_user_id" value="1"/>
+        </insert>
+
+        <rollback>
+
+            <delete tableName="contractor">
+                <where>name = '${231020_GRABSGEXT_130_grab_operation_create_contractors_ECA_Auto.USBS}'</where>
+            </delete>
+
+        </rollback>
+    </changeSet>
+	
+	<!-- create the portfolio SYNERGY -->
+    <changeSet logicalFilePath="${logicalFile}" id="grab_co_schedule_create_portfolio_SYNERGY" author="m.narawade">
+        
+        <insert tableName="contractor">
+            <column name="id" valueComputed="(select MAX(id) from contractor)"/>
+            <column name="name" value="${231020_GRABSGEXT_130_grab_operation_create_contractors_ECA_Auto.SYNERGY}"/>
+            <column name="full_name" value="${231020_GRABSGEXT_130_grab_operation_create_contractors_ECA_Auto.SYNERGY}" />
+            <column name="create_dt" value="${DATE_NOW}"/>
+            <column name="change_dt" value="${DATE_NOW}"/>
+            <column name="r_customer_id" value="0"/>
+            <column name="r_change_user_id" value="1"/>
+        </insert>
+
+        <rollback>
+
+            <delete tableName="contractor">
+                <where>name = '${231020_GRABSGEXT_130_grab_operation_create_contractors_ECA_Auto.SYNERGY}'</where>
+            </delete>
+
+        </rollback>
+    </changeSet>    
+
+    <changeSet logicalFilePath="${logicalFile}" id="contractor_identity_insert_off" author="m.narawade" dbms="mssql">
+        <sql>
+            SET IDENTITY_INSERT contractor OFF;
+        </sql>
+    </changeSet>
+</databaseChangeLog>

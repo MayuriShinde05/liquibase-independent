@@ -1,0 +1,21 @@
+<?xml version="1.1" encoding="UTF-8" ?>
+<databaseChangeLog
+        xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog
+                   http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.5.xsd">
+
+    <changeSet logicalFilePath="231023_GRABSGEXT_130_grab_lookup_create_portfolio.xml" id="231023_GRABSGEXT_130_grab_lookup_create_portfolio" author="m.narawade">
+        <tagDatabase tag="231023_GRABSGEXT_130_grab_lookup_create_portfolio"/>
+    </changeSet>
+
+    <changeSet logicalFilePath="231023_GRABSGEXT_130_grab_lookup_create_portfolio.xml" id="grab_portfolio_lookup" author="m.narawade">
+        <insert tableName="lookup">
+            <column name="sql"
+                    value="select c.id code, c.name value from contractor c where c.id in (select attr_val.r_entity_id from attribute_value attr_val where attr_val.r_attribute_type_code = 4665677 and attr_val.value_n = :regionCode)"/>
+            <column name="r_customer_id" value="0"/>
+            <column name="name" value="contractors_for_create_portfolio"/>
+            <column name="has_param" value="0"/>
+        </insert>
+    </changeSet>
+</databaseChangeLog>

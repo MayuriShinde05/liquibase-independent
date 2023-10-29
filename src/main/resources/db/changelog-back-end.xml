@@ -1,0 +1,15 @@
+<?xml version="1.1" encoding="UTF-8" standalone="no"?>
+<databaseChangeLog
+	xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog
+                   http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.5.xsd">
+	<!-- <include file="20231013_All_Database_Operations_GRABSGEXT-121.xml" relativeToChangelogFile="true"/>
+	<include file="create-info-table-changelog.xml" relativeToChangelogFile="true"/>
+	<include file="insert-info-table-changelog.xml" relativeToChangelogFile="true"/>
+	<include file="update-info-table-changelog.xml" relativeToChangelogFile="true"/> -->
+	<include file="231020_GRABSGEXT_130_grab_create_portfolio_dict.xml" relativeToChangelogFile="true"/>
+	<!-- <include file="231020_GRABSGEXT_130_grab_operation_create_contractors_ECA_Auto.xml" relativeToChangelogFile="true"/>-->
+	<include file="231023_GRABSGEXT_130_grab_lookup_create_portfolio.xml" relativeToChangelogFile="true" />
+	<include file="231020_GRABSGEXT_130_grab_operation_create_portfolio.xml" relativeToChangelogFile="true" />
+</databaseChangeLog>

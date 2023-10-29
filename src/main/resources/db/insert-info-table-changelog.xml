@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<databaseChangeLog
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xmlns:ext="http://www.liquibase.org/xml/ns/dbchangelog-ext"
+	xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+	xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.1.xsd
+    http://www.liquibase.org/xml/ns/dbchangelog-ext http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-ext.xsd">
+
+	<changeSet author="m.narawade" id="insert_value_tbl"
+		logicalFilePath="insert-info-table-changelog.xml" dbms="mssql">
+		<sql dbms="mssql">SET IDENTITY_INSERT applicationinfo ON;</sql>
+		<insert tableName="applicationinfo">
+			<column name="id" valueNumeric="1" />
+			<column name="applicationName" value="LiquibaseWithSpringBoot" />
+			<column name="applicationVersion" value="1.0" />
+		</insert>
+		<sql dbms="mssql">SET IDENTITY_INSERT applicationinfo OFF;</sql>
+	</changeSet>
+</databaseChangeLog>
